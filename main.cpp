@@ -17,15 +17,21 @@ double wspolczynnik(int rozmiar) {
   
 }
 
-void pomiar(vector<int>* tablice, double stopien_posortowania) {
+void pomiar(vector<int>* tablice,
+	    double stopien_posortowania,
+	    unsigned int nr_algorytmu,
+	    const char* nazwa_pliku) {
 
   srand(time(NULL));
   int ostatni;
   Timer timer;
-  ofstream plik("pomiar3.dat");
+  ofstream plik(nazwa_pliku);
   double c = 0;
   
-  for (int rozmiar : {10000, 100000}) {
+  for (int rozmiar : {10000, 100000, 500000, 1000000}) {
+    
+    for (int i=0; i<100; i++)
+      tablice[i].clear();
 
     ostatni = rozmiar * stopien_posortowania - 1;
     
@@ -35,77 +41,78 @@ void pomiar(vector<int>* tablice, double stopien_posortowania) {
 
     for (int i=0; i<100; i++)
       introsort(tablice[i], 0, ostatni, 0);
+
+    switch (nr_algorytmu) {
+
+    case 1:
     
-    timer.start();
-    for (int i=0; i<100; i++)
-      mergesort(tablice[i], 0, rozmiar-1);
-    timer.stop();
-    plik << timer.getElapsedTimeInMilliSec() << " ";
+      timer.start();
+      for (int i=0; i<100; i++)
+	mergesort(tablice[i], 0, rozmiar-1);
+      timer.stop();
+      plik << timer.getElapsedTimeInMilliSec() << endl;
+      break;
 
-    for (int i=0; i<100; i++)
-      for (int j=0; j<rozmiar; j++)
-	tablice[i][j] = rand();
+    case 2:
+      
+      timer.start();
+      for (int i=0; i<100; i++)
+	quicksort(tablice[i], 0, rozmiar-1);
+      timer.stop();
+      plik << timer.getElapsedTimeInMilliSec() << endl;
+      break;
 
-    for (int i=0; i<100; i++)
-      introsort(tablice[i], 0, ostatni, 0);
+    case 3:
+      
+      // c = wspolczynnik(rozmiar);
     
-    timer.start();
-    for (int i=0; i<100; i++)
-      quicksort(tablice[i], 0, rozmiar-1);
-    timer.stop();
-    plik << timer.getElapsedTimeInMilliSec() << " ";
+      timer.start();
+      for (int i=0; i<100; i++)
+	introsort(tablice[i], 0, rozmiar-1, c * log2(rozmiar));
+      timer.stop();
+      plik << timer.getElapsedTimeInMilliSec() << endl;
+      break;
 
-    for (int i=0; i<100; i++)
-      for (int j=0; j<rozmiar; j++)
-	tablice[i][j] = rand();
-    
-    for (int i=0; i<100; i++)
-      introsort(tablice[i], 0, ostatni, 0);
-
-    // c = wspolczynnik(rozmiar);
-    
-    timer.start();
-    for (int i=0; i<100; i++)
-      introsort(tablice[i], 0, rozmiar-1, c * log2(rozmiar));
-    timer.stop();
-    plik << timer.getElapsedTimeInMilliSec() << endl;
-
-    for (int i=0; i<100; i++)
-      tablice[i].clear();
+    }
   }
-
+  
+  for (int i=0; i<100; i++)
+    tablice[i].clear();
+    
   plik.close();
 }
 
 int main() {
 
-  //vector<int>* tablice = new vector<int>[100];
+  vector<int>* tablice = new vector<int>[100];
 
-  //pomiar(tablice, 0);
-
-  vector<int> T1, T2;
-  double t1, t2;
-  Timer timer;
+  pomiar(tablice, 0, 1, "pomiar_mergesort.dat");
+  // pomiar(tablice, 0, 2, "pomiar_quicksort.dat");
+  // pomiar(tablice, 0, 3, "pomiar_introsort.dat");
   
-  for (long int i=0; i<10000000; i++) {
+  // vector<int> T1, T2;
+  // double t1, t2;
+  // Timer timer;
+  
+  // for (long int i=0; i<1000000; i++) {
 
-    T1.push_back(rand());
-    T2.push_back(rand());
+  //   T1.push_back(rand());
+  //   T2.push_back(rand());
     
-  }
+  // }
 
-  timer.start();
-  quicksort(T1, 0, T1.size()-1);
-  timer.stop();
-  t1 = timer.getElapsedTimeInMilliSec();
+  // timer.start();
+  // quicksort(T1, 0, T1.size()-1);
+  // timer.stop();
+  // t1 = timer.getElapsedTimeInMilliSec();
 
-  timer.start();
-  heapsort(T2, 0, T2.size()-1);
-  timer.stop();
-  t2 = timer.getElapsedTimeInMilliSec();
+  // timer.start();
+  // heapsort(T2, 0, T2.size()-1);
+  // timer.stop();
+  // t2 = timer.getElapsedTimeInMilliSec();
 
-  cout << "q: " << t1 << endl << "h: " << t2 << endl;
+  // cout << "q: " << t1 << endl << "h: " << t2 << endl;
   
-  return 0;
+  // return 0;
   
 }
