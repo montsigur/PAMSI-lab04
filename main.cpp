@@ -25,8 +25,8 @@ void pomiar(vector<int>* tablice,
   srand(time(NULL));
   int ostatni;
   Timer timer;
-  ofstream plik(nazwa_pliku);
   double c = 0;
+  ofstream plik(nazwa_pliku);
   
   for (int rozmiar : {10000, 100000, 500000, 1000000}) {
     
@@ -82,13 +82,23 @@ void pomiar(vector<int>* tablice,
   plik.close();
 }
 
-int main() {
+int main(int argc, char** argv) {
 
   vector<int>* tablice = new vector<int>[100];
 
-  pomiar(tablice, 0, 1, "pomiar_mergesort.dat");
-  // pomiar(tablice, 0, 2, "pomiar_quicksort.dat");
-  // pomiar(tablice, 0, 3, "pomiar_introsort.dat");
+  if (argc > 1) {
+  
+    string algorytm(argv[1]);
+
+    if (algorytm == string("mergesort"))
+      pomiar(tablice, 0, 1, "pomiar_mergesort.dat");
+
+    else if (algorytm == string("quicksort"))
+      pomiar(tablice, 0, 2, "pomiar_quicksort.dat");
+
+    else if (algorytm == string("introsort"))
+      pomiar(tablice, 0, 3, "pomiar_introsort.dat");
+  }
   
   // vector<int> T1, T2;
   // double t1, t2;
