@@ -1,3 +1,5 @@
+#ifndef MERGESORT_HPP
+#define MERGESORT_HPP
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -34,3 +36,5 @@ void mergesort(vector<int>& array, unsigned int from, unsigned int to) {
     }
   }
 }
+
+#endif

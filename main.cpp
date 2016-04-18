@@ -1,6 +1,7 @@
 #include "mergesort.hpp"
 #include "quicksort.hpp"
 #include "introsort.hpp"
+#include "heapsort.hpp"
 #include "timer/src/Timer.h"
 #include <ctime>
 #include <cstdlib>
@@ -78,10 +79,33 @@ void pomiar(vector<int>* tablice, double stopien_posortowania) {
 
 int main() {
 
-  vector<int>* tablice = new vector<int>[100];
+  //vector<int>* tablice = new vector<int>[100];
 
-  pomiar(tablice, 0);
+  //pomiar(tablice, 0);
 
+  vector<int> T1, T2;
+  double t1, t2;
+  Timer timer;
+  
+  for (long int i=0; i<10000000; i++) {
+
+    T1.push_back(rand());
+    T2.push_back(rand());
+    
+  }
+
+  timer.start();
+  quicksort(T1, 0, T1.size()-1);
+  timer.stop();
+  t1 = timer.getElapsedTimeInMilliSec();
+
+  timer.start();
+  heapsort(T2, 0, T2.size()-1);
+  timer.stop();
+  t2 = timer.getElapsedTimeInMilliSec();
+
+  cout << "q: " << t1 << endl << "h: " << t2 << endl;
+  
   return 0;
   
 }

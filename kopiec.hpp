@@ -1,3 +1,5 @@
+#ifndef KOPIEC_HPP
+#define KOPIEC_HPP
 #include <iostream>
 #include "EmptyHeapException.hpp"
 using namespace std;
@@ -53,3 +55,4 @@ public:
   void zawartosc();
 };
 
+#endif

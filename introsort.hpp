@@ -1,3 +1,5 @@
+#ifndef INTROSORT_HPP
+#define INTROSORT_HPP
 #include "kopiec.hpp"
 #include <vector>
 #include <cmath>
@@ -57,3 +59,5 @@ void introsort(vector<int> &array,
     }  
   }
 }
+
+#endif

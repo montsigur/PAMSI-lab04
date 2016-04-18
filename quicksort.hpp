@@ -1,3 +1,5 @@
+#ifndef QUICKSORT_HPP
+#define QUICKSORT_HPP
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -37,3 +39,5 @@ void quicksort(vector<int>& array, int from, int to) {
     quicksort(array, pivot_index+1, to);
   }
 }
+
+#endif
