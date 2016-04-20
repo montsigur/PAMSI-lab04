@@ -139,8 +139,10 @@ int main(int argc, char** argv) {
     
   // }
 
-  for (int i=1; i<4; i++)
-    for (double s : {0.0, 0.25, 0.5, 0.75, 0.95, 0.99, 0.997, -1.0})
-      pomiar(tablice, s, i);
+  // for (int i=1; i<4; i++)
+  //   for (double s : {0.0, 0.25, 0.5, 0.75, 0.95, 0.99, 0.997, -1.0})
+  //     pomiar(tablice, s, i);
+
+  pomiar(tablice, -1.0, 2);
 
 }
